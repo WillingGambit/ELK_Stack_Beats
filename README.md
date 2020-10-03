@@ -66,13 +66,15 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 The playbook implements the following tasks:
 
 The header which will specify the elkservers along with the remote user with access.
-- name: Configure Elk VM with Docker
-  hosts: elkservers
-  remote_user: azadmin
-  become: true
-  tasks:
+
+    - name: Configure Elk VM with Docker
+      hosts: elkservers
+      remote_user: azadmin
+      become: true
+      tasks:
 
 Installation of docker.io, python3-pip and docker:
+
     # Use apt module
     - name: Install docker.io
       apt:
@@ -95,6 +97,7 @@ Installation of docker.io, python3-pip and docker:
         state: present
 
 Installation to increase virtual memory:
+
       # Use command module
     - name: Increase virtual memory
       command: sysctl -w vm.max_map_count=262144
@@ -108,6 +111,7 @@ Installation to increase virtual memory:
         reload: yes
 
 Then to select the docker container and establish the ports that will be used by the various ELK stack components:
+
       # Use docker_container module
     - name: download and launch a docker elk container
       docker_container:
