@@ -156,19 +156,20 @@ SSH into the control node and follow the steps below:
   line #1105 hosts: ["your ELK machine IP:9200"]
   line #1806 host: "your ELK machine IP:5601"
 - Within your [hosts](Linux/hosts) file located in your /etc/ansible folder, make certain that hosts: [webservers] contains all IP addresses of the machines that you wish to be observed. An example as currently configured: 
-[webservers]
-## alpha.example.org
-## beta.example.org
-## 192.168.1.100
-## 192.168.1.110
-10.0.0.5 ansible_python_interpreter=/usr/bin/python3
-10.0.0.6 ansible_python_interpreter=/usr/bin/python3
-10.0.0.8 ansible_python_interpreter=/usr/bin/python3
+
+      [webservers]
+      ## alpha.example.org
+      ## beta.example.org
+      ## 192.168.1.100
+      ## 192.168.1.110
+      10.0.0.5 ansible_python_interpreter=/usr/bin/python3
+      10.0.0.6 ansible_python_interpreter=/usr/bin/python3
+      10.0.0.8 ansible_python_interpreter=/usr/bin/python3
 
 also: [elkservers] has it's IP address included:
 
-[elkservers]
-10.1.0.4 ansible_python_interpreter=/usr/bin/python3
+    [elkservers]
+    10.1.0.4 ansible_python_interpreter=/usr/bin/python3
 
 - Run the playbook, ansible-playbook filebeat-playbook.yml
 - navigate to http://[your.VM.IP]:5601/app/kibana to check that the installation worked as expected.
@@ -179,19 +180,20 @@ also: [elkservers] has it's IP address included:
   line #62 host: "your ELK machine IP:5601"
   line #95 hosts: ["your ELK machine IP:9200"]
 - Within your [hosts](Linux/hosts) file located in your /etc/ansible folder, make certain that hosts: [webservers] contains all IP addresses of the machines that you wish to be observed. An example as currently configured: 
-[webservers]
-## alpha.example.org
-## beta.example.org
-## 192.168.1.100
-## 192.168.1.110
-10.0.0.5 ansible_python_interpreter=/usr/bin/python3
-10.0.0.6 ansible_python_interpreter=/usr/bin/python3
-10.0.0.8 ansible_python_interpreter=/usr/bin/python3
+
+      [webservers]
+      ## alpha.example.org
+      ## beta.example.org
+      ## 192.168.1.100
+      ## 192.168.1.110
+      10.0.0.5 ansible_python_interpreter=/usr/bin/python3
+      10.0.0.6 ansible_python_interpreter=/usr/bin/python3
+      10.0.0.8 ansible_python_interpreter=/usr/bin/python3
 
 also: [elkservers] has it's IP address included:
 
-[elkservers]
-10.1.0.4 ansible_python_interpreter=/usr/bin/python3
+     [elkservers]
+     10.1.0.4 ansible_python_interpreter=/usr/bin/python3
 - Run the playbook, ansible-playbook metricbeat-playbook.yml
 - navigate to http://[your.VM.IP]:5601/app/kibana to check that the installation worked as expected.
 
