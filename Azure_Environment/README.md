@@ -22,7 +22,7 @@ A single point of entry to configure the network is created through the JumpBox 
 
 The configuration details of each machine may be found below.
 
-#### Resource Group
+### Resource Group
 
 A resource group is a grouping of all resources used for a project, from networks, firewalls, virtual computers and more.  
   - Select Resource Group and Click Add  
@@ -30,11 +30,11 @@ A resource group is a grouping of all resources used for a project, from network
   - Review and Create  
   ![](Diagrams/Create_Resource_Group.PNG)
   
-#### Virtual Network
+### Virtual Network
 
 A virtual Network is a collection of Virtual Machines that communicate with each other. Two will be created for this projected, one for the first subnet containing the Web Machines and one for the ELK subnet. These two networks will have to be connected to allow traffic to go back and forth the Networks by generating a Peer Connection.  
 
-##### Web based Virtual Network  
+#### Web based Virtual Network  
   - Select Virtual Network and Click Create Virtual Network  
   - Select the Resource Group that was created  
   - Enter a name that will define the Network  
@@ -43,7 +43,7 @@ A virtual Network is a collection of Virtual Machines that communicate with each
   - Review and Create  
   ![](Diagrams/Create_Virtual_Network.PNG)    
   
-##### ELK based Virtual Network  
+#### ELK based Virtual Network  
   - Select Virtual Network and Click Create Virtual Network  
   - Select the Resource Group that was created  
   - Enter a name that will define the ELK Network  
@@ -53,7 +53,7 @@ A virtual Network is a collection of Virtual Machines that communicate with each
   - Review and Create  
   ![](Diagrams/Create_Virtual_Network_ELK.PNG)    
   
-##### Peer Connection  
+#### Peer Connection  
   - Go to the ELK Virtual Network that was just created and select Peerings  
   - Click Add  
   - Enter a name that will define the connection from ELK to Red  
@@ -62,7 +62,7 @@ A virtual Network is a collection of Virtual Machines that communicate with each
   - Leave all other settings as defaults  
   ![](Diagrams/Create_Virtual_Network_ELK_Peering.PNG)  
   
-#### Virtual Machines
+### Virtual Machines
 
 A Virtual Machine is just like a physical computer but has the flexibility to have the power and storage that is desired for each individual machine. For this project we will generate our point of entry machine, called our JumpBox Provisioner. We will also create several load balanced Web Machines that will be connecting to the Internet and then a final ELK Server machine that will be running the ELK Stack monitoring. All these machines will be connected by SSH keys going through port 22.  
 
@@ -71,7 +71,7 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
   - Do not enter a password, press enter twice to leave a blank password  
   - To access the key run cat ~/.ssh/id_rsa.pub  
 
-##### JumpBox Provisioner  
+#### JumpBox Provisioner  
 
   - Select Virtual Machines, click add, click virtual machine  
   - Select the Resource Group that was just created  
@@ -88,7 +88,7 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
   ![](Diagrams/Create_Virtual_Machine_JumpBox2.PNG)  
   ![](Diagrams/Create_Virtual_Machine_JumpBox3.PNG)  
   
-##### Web Virtual Machines  
+#### Web Virtual Machines  
 
   - Select Virtual Machines, click add, click virtual machine  
   - Select the Resource Group that was created  
