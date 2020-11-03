@@ -4,9 +4,13 @@ The files in this repository were used to configure the network depicted below.
 
 ![ELK stack with filebeat and metricbeat monitoring](Diagrams/RedTeam_Resource_Group_with_ELK.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the Ansible file may be used to install only certain pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the Ansible file may be used to install only certain pieces of it; the ELK playbook, Filebeat or Metricbeat.
 
-  - _TODO: Enter the playbook file._
+[ELK playbook](Ansible/elk.yml)
+
+[Filebeat-playbook](Ansible/filebeat-playbook.yml)
+
+[Metricbeat-playbook](Ansible/metricbeat-playbook.yml)
 
 This document contains the following details:
 - Description of the Topology
@@ -151,10 +155,10 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 ### For Filebeat:
-- Copy the filebeat-config.yml and filebeat-playbook.yml files to your /etc/anisble folder.
-- Update the filebeat-config.yml file to include:
-  line #1105 hosts: ["your ELK machine IP:9200"]
-  line #1806 host: "your ELK machine IP:5601"
+- Copy the [filebeat-config.yml](Ansible/filebeat-config.yml) and [filebeat-playbook.yml](Ansible/filebeat-playbook.yml) files to your /etc/anisble folder.
+- Update the filebeat-config.yml file to include:  
+  line #1105 hosts: ["your ELK machine IP:9200"]  
+  line #1806 host: "your ELK machine IP:5601"  
 - Within your [hosts](Linux/hosts) file located in your /etc/ansible folder, make certain that hosts: [webservers] contains all IP addresses of the machines that you wish to be observed. An example as currently configured: 
 
       [webservers]
@@ -171,11 +175,16 @@ also: [elkservers] has it's IP address included:
     [elkservers]
     10.1.0.4 ansible_python_interpreter=/usr/bin/python3
 
-- Run the playbook, ansible-playbook filebeat-playbook.yml
-- navigate to http://[your.VM.IP]:5601/app/kibana to check that the installation worked as expected.
+- Run the playbook, ansible-playbook filebeat-playbook.yml  
+  - After running ansible-playbook filebeat-playbook.yml  
+		navigate to http://[your.VM.IP]:5601/app/kibana  
+			Select "Add log data"  
+			Select "System logs"  
+			Select "Deb" and scroll down to number 5 "Module status"  
+			Select "Check Data" and you should see success and that you are receiving data.
 
 ### For Metricbeat:
-- Copy the metricbeat-config.yml and metricbeat-playbook.yml files to your /etc/anisble folder.
+- Copy the [metricbeat-config.yml](Ansible/metricbeat-config.yml) and [metricbeat-playbook.yml](metricbeat-playbook.yml) files to your /etc/anisble folder.
 - Update the metricbeat-config.yml file to include:
   line #62 host: "your ELK machine IP:5601"
   line #95 hosts: ["your ELK machine IP:9200"]
@@ -195,6 +204,11 @@ also: [elkservers] has it's IP address included:
      [elkservers]
      10.1.0.4 ansible_python_interpreter=/usr/bin/python3
 - Run the playbook, ansible-playbook metricbeat-playbook.yml
-- navigate to http://[your.VM.IP]:5601/app/kibana to check that the installation worked as expected.
+  - After running ansible-playbook metricbeat-playbook.yml
+		navigate to http://[your.VM.IP]:5601/app/kibana  
+      Select "Add metric data"  
+      Select "Docker metrics"  
+      Select "Deb" and scroll down to number 5 "Module status"  
+      Select "Check Data" and you should see success and that you are receiving data.
 
 
