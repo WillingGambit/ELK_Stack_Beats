@@ -32,7 +32,7 @@ A resource group is a grouping of all resources used for a project, from network
   
 ### Virtual Network
 
-A virtual Network is a collection of Virtual Machines that communicate with each other. Two will be created for this projected, one for the first subnet containing the Web Machines and one for the ELK subnet. These two networks will have to be connected to allow traffic to go back and forth the Networks by generating a Peer Connection.  
+A virtual Network is a collection of Virtual Machines that communicate with each other. Two will be created for this projected, one for the first subnet containing the JumpBox, Web Machines, Load Balancer and one for the ELK subnet. These two networks will have to be connected to allow traffic to go back and forth the Networks by generating a Peer Connection.  
 
 #### Web based Virtual Network  
   - Select Virtual Network and Click Create Virtual Network  
@@ -61,6 +61,18 @@ A virtual Network is a collection of Virtual Machines that communicate with each
   - Enter a name that will define the connection from Red to ELK  
   - Leave all other settings as defaults  
   ![](Diagrams/Create_Virtual_Network_ELK_Peering.PNG)  
+ 
+ ### Network Security Group  
+ 
+The Network Security Group is the basic firewall for the Azure platform. This is where we will control traffic going in and out by creating rules and permissions for the various devices and ports.
+
+  - Select Network Security Group and Click Create Network Security Group  
+  - Select the Resource Group that was created  
+  - Enter a name that will define the Security Group  
+  - Make sure that it is in the same region as the Web Network  
+  - Review and create  
+  - We will be creating all the inbound rules after the rest of the componets have been added.  
+  ![](Diagrams/Create_Network_Security_Group.PNG)  
   
 ### Virtual Machines
 
@@ -98,6 +110,7 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
 ![](Diagrams/Create_Virtual_Machine_Web_Availability)  	
   - Make sure that it is in the region chosen for Web Virtual Network  
   - Select the size of the virtual machine that is desired (for these machines B1ms was chosen)  
+  - For SSH you can use the key from the host machine until we develop the containers, after that we will use the key generated in the container.  
   - Select SSH public key  
   - Enter in a username that will be used to SSH into the virtual machines from the JumpBox  
   - For SSH public key source, select Use existing public key  
@@ -107,3 +120,36 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
 ![](Diagrams/Create_Virtual_Machine_Web1.PNG)  
 ![](Diagrams/Create_Virtual_Machine_Web2.PNG)  
 ![](Diagrams/Create_Virtual_Machine_Web3.PNG)  
+
+#### ELK Virtual Machines  
+
+  - Select Virtual Machines, click add, click virtual machine  
+  - Select the Resource Group that was created  
+  - Enter a name that will define the Virtual Machine  
+  - For Availability Options, select No infrastructure redundancy required  
+  - Make sure that it is in the region chosen for ELK Virtual Network  
+  - Select the size of the virtual machine that is desired (This one must be 4GiB memory or higher, preferably 8 GiB, for this we used D2s_v3)  
+  - For SSH you can use the key from the host machine until we develop the containers, after that we will use the key generated in the container.  
+  - Select SSH public key  
+  - Enter in a username that will be used to SSH into the virtual machines from the JumpBox  
+  - For SSH public key source, select Use existing public key  
+  - Copy the SSH key generated within the Ansible container of the JumpBox  
+  - Under the Networking tab, for Public IP, allow it to create one  
+  - Under NIC network security group, select Basic  
+![](Diagrams/Create_Virtual_Machine_ELK1.PNG)  
+![](Diagrams/Create_Virtual_Machine_ELK2.PNG)  
+![](Diagrams/Create_Virtual_Machine_ELK3.PNG)
+
+### Load Balancer  
+
+A load balancer is designed to receive all traffic coming into the website and then distribute it across our multiple Web servers. It will define our external IP address for the website. It is crucial for maintaining the availability of our website and can protect against Denial of Service attacks. If the website site receives more traffic than can be handled, more Web servers can be added to the system.
+
+  - Select Load Balancers and Click Create Load Balancer  
+  - Select the Resource Group that was created  
+  - Enter a name that will define the Load Balancer  
+  - Make sure that it is in the region chosen for Web Virtual Network  
+  - For Public IP address, select Create New  
+  - For Public IP address name, enter in the name given to the Load Balancer  
+  - For IP address management, select Static (this will keep the public IP address the same even if the system goes down)
+  - Leave all else the same and click create.  
+  ![](Diagrams/Create_Load_Balancer1.PNG)  
