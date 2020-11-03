@@ -135,7 +135,9 @@ If the elk container hasn't started run: sudo docker start elk
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 ![](Diagrams/ELK_docker_ps.PNG)
 
-- navigate to http://[your.VM.IP]:5601/app/kibana. If successful then the webpage should load.
+- navigate to http://[your.VM.IP]:5601/app/kibana. If successful then the webpage should load. 
+
+![](Diagrams/Kibana_home_page.PNG)
 
 
 ### Target Machines & Beats
@@ -177,11 +179,13 @@ also: [elkservers] has it's IP address included:
 
 - Run the playbook, ansible-playbook filebeat-playbook.yml  
   - After running ansible-playbook filebeat-playbook.yml  
-		navigate to http://[your.VM.IP]:5601/app/kibana  
-			Select "Add log data"  
-			Select "System logs"  
-			Select "Deb" and scroll down to number 5 "Module status"  
-			Select "Check Data" and you should see success and that you are receiving data.
+	navigate to http://[your.VM.IP]:5601/app/kibana  
+	Select "Add log data"  
+	Select "System logs"  
+	Select "Deb" and scroll down to number 5 "Module status"  
+	Select "Check Data" and you should see success and that you are receiving data.
+	
+![](Diagrams/Filebeat_Running_Kibana.PNG)
 
 ### For Metricbeat:
 - Copy the [metricbeat-config.yml](Ansible/metricbeat-config.yml) and [metricbeat-playbook.yml](metricbeat-playbook.yml) files to your /etc/anisble folder.
@@ -209,6 +213,7 @@ also: [elkservers] has it's IP address included:
       Select "Add metric data"  
       Select "Docker metrics"  
       Select "Deb" and scroll down to number 5 "Module status"  
-      Select "Check Data" and you should see success and that you are receiving data.
+      Select "Check Data" and you should see success and that you are receiving data.  
+![](Diagrams/Metricbeat_Running_Kibana.PNG)
 
 
