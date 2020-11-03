@@ -153,3 +153,38 @@ A load balancer is designed to receive all traffic coming into the website and t
   - For IP address management, select Static (this will keep the public IP address the same even if the system goes down)
   - Leave all else the same and click create.  
   ![](Diagrams/Create_Load_Balancer1.PNG)  
+
+#### Health Probe  
+
+A health probe is created to check the machines behind the load balancer before traffic is sent to them. If a machine has an issue, then the load balancer stops sending traffic to that machine. 
+
+  - Click Go To Resource  
+  - Click Health Probe and add one  
+  - Name it something that will define the Health Probe  
+  - Leave all others the same  
+  ![](Diagrams/LB_Health_Probe.PNG)
+  
+#### Backend Pool  
+
+The Backend Pool is created to define what machines will run through the Load Balancer. 
+
+  - Click Go To Resource  
+  - Click Backend Pool and add one  
+  - Name it something that will define the Backend Pool  
+  - For Virtual Network, select the Web Machine Network  
+  - For Associate to, select Virtual Machines  
+    - Click Add and then select all Web Machines to be load balanced  
+  ![](Diagrams/LB_Rule_Backend_Pool.PNG)
+  
+#### Load Balancing Rule  
+
+A Load Balancing Rule is created to define what ports the traffic will go through to reach the Backend Pool of machines. 
+
+  - Click Go To Resource  
+  - Click Load Balancing Rule and add one  
+  - Name it something that will define the Load Balancing Rule  
+  - For Backend Pool, select the one created  
+  - For Health Probe, select the one created  
+  - For Session Persistence, select Client IP and Protocol
+		Leave all others the same and click OK
+  ![](Diagrams/LB_Rule.PNG)
