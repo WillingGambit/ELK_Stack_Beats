@@ -135,7 +135,7 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
   - For SSH public key source, select Use existing public key  
   - Copy the SSH key generated within the Ansible container of the JumpBox  
   - Under the Networking tab, for Public IP, allow it to create one  
-  - Under NIC network security group, select Basic  
+  - Under NIC network security group, select Basic (by selecting basic a ELK Security Group will be created with an SSH rule already included)  
 ![](Diagrams/Create_Virtual_Machine_ELK1.PNG)  
 ![](Diagrams/Create_Virtual_Machine_ELK2.PNG)  
 ![](Diagrams/Create_Virtual_Machine_ELK3.PNG)
@@ -173,7 +173,7 @@ The Backend Pool is created to define what machines will run through the Load Ba
   - Name it something that will define the Backend Pool  
   - For Virtual Network, select the Web Machine Network  
   - For Associate to, select Virtual Machines  
-    - Click Add and then select all Web Machines to be load balanced  
+  - Click Add and then select all Web Machines to be load balanced  
   ![](Diagrams/LB_Rule_Backend_Pool.PNG)
   
 #### Load Balancing Rule  
@@ -185,8 +185,8 @@ A Load Balancing Rule is created to define what ports the traffic will go throug
   - Name it something that will define the Load Balancing Rule  
   - For Backend Pool, select the one created  
   - For Health Probe, select the one created  
-  - For Session Persistence, select Client IP and Protocol
-		Leave all others the same and click OK
+  - For Session Persistence, select Client IP and Protocol  
+  - Leave all others the same and click OK
   ![](Diagrams/LB_Rule.PNG)
 
 ### Security Rules  
@@ -195,7 +195,7 @@ Traffic coming into the system and throughout the system are all controlled by t
 
 #### SSH Port-22  
 
-This rule is create to allow SSH access into the JumpBox Provisioner from our host machine.  
+This rule is created to allow SSH access into the JumpBox Provisioner from our host machine.  
   - For Source, select IP Addresses  
   - For Source IP, enter in the host machine IP address  
   - For Destination Port Ranges, enter in 22  
@@ -204,7 +204,43 @@ This rule is create to allow SSH access into the JumpBox Provisioner from our ho
   - For Description, enter what the rule is allowing  
   ![](Diagrams/Add_Security_Rule_SSH-Port22.PNG)  
   
-  Now that this rule is created you should be able to SSH into the JumpBox via the host machine. To test this, from the terminal run the command: ssh (username)@(JumpBox public IP address). 
+Now that this rule is created you should be able to SSH into the JumpBox via the host machine. To test this, from the terminal run the command: ssh (username)@(JumpBox public IP address). 
+  
+#### SSH From JumpBox into Web Machines  
+
+This rule is created to allow SSH access into the Web Machines from our JumpBox. It will be entered into the Web Machines security group.  
+  - For Source, select IP Addresses  
+  - For Source IP, enter in the JumpBox public IP address  
+  - For Destination, select VirtualNetwork  
+  - For Destination Port Ranges, enter in 22  
+  - For Priority, enter in a value higher than or having a lower priority than SSH Port-22  
+  - For Name, enter a name defining the rule  
+  - For Description, enter what the rule is allowing  
+  ![](Diagrams/Add_Security_Rule_SSH-From-JumpBox.PNG)  
+  
+#### Port 80 Traffic  
+
+This rule is created to allow web traffic access into the Web Machines through port 80.  
+  - For Source, select IP Addresses  
+  - For Source IP, enter * to allow web traffic in from any IP address  
+  - For Destination, select VirtualNetwork  
+  - For Destination Port Ranges, enter in 80  
+  - For Priority, enter in a value higher than or having a lower priority than the previous 2 rules  
+  - For Name, enter a name defining the rule  
+  - For Description, enter what the rule is allowing  
+  ![](Diagrams/Add_Security_Rule_Port-80-Traffic.PNG)  
+  
+#### Host Machine to Kibana   
+
+This rule is created to allow the host machine access into the ELK Machine through port 5601 for Kibana.  
+  - For Source, select IP Addresses  
+  - For Source IP, enter host machine IP address  
+  - For Destination, select VirtualNetwork  
+  - For Destination Port Ranges, enter in 80  
+  - For Priority, enter in a value higher than the SSH rule   
+  - For Name, enter a name defining the rule  
+  - For Description, enter what the rule is allowing  
+  ![](Diagrams/Add_Security_Rule_Host-Machine-to-Kibana.PNG) 
   
 ### Containers  
 
@@ -228,28 +264,6 @@ Containers are esentially lightweight Virtual Machines. This gives greater flexi
   - Run sudo docker ps  
   - Run sudo docker attach (container name)  
   
-You are in the Ansible container. From here you can generate the SSH key for this machine. Return to each of the Web Machines and ELK Machine, click on Reset Password and paste in the new key that was created.
+You are in the Ansible container. From here you can generate the SSH key for this machine. Return to each of the Web Machines and ELK Machine, click on Reset Password and paste in the new key that was created. You can now test the connections to the various machines by SSH into each with: ssh (username)@(Web/ELK Machine private IP address)
 
-#### SSH From JumpBox into Web Machines  
 
-This rule is create to allow SSH access into the Web Machines from our JumpBox. It will be entered into the Web Machines security group.  
-  - For Source, select IP Addresses  
-  - For Source IP, enter in the JumpBox public IP address  
-  - For Destination, select VirtualNetwork  
-  - For Destination Port Ranges, enter in 22  
-  - For Priority, enter in a value higher than or having a lower priority than SSH Port-22  
-  - For Name, enter a name defining the rule  
-  - For Description, enter what the rule is allowing  
-  ![](Diagrams/Add_Security_Rule_SSH-From-JumpBox.PNG)  
-  
-#### Inbound Security Rule Port 80 Traffic  
-
-This rule is create to allow web traffic access into the Web Machines through port 80.  
-  - For Source, select IP Addresses  
-  - For Source IP, enter * to allow web traffic in from any IP address  
-  - For Destination, select VirtualNetwork  
-  - For Destination Port Ranges, enter in 80  
-  - For Priority, enter in a value higher than or having a lower priority than the previous 2 rules  
-  - For Name, enter a name defining the rule  
-  - For Description, enter what the rule is allowing  
-  ![](Diagrams/Add_Security_Rule_Port-80-Traffic.PNG)  
