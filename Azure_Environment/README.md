@@ -309,7 +309,7 @@ We will now configue the Web machines for DVWA websites. These machines can be c
   - Run ansible-playbook pentest.yml  
   - Upon success you should see:  
   
-    ![](Diagrams/Ansible_playbook_pentest.yml)
+    ![](Diagrams/Ansible_playbook_pentest_yml.PNG)
 
 You can run ansible all -m ping and all of the connected Web Machines should have success.
 
