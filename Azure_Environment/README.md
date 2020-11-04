@@ -28,6 +28,7 @@ A resource group is a grouping of all resources used for a project, from network
   - Select Resource Group and Click Add  
   - Select your region and give the group a name  
   - Review and Create  
+  
   ![](Diagrams/Create_Resource_Group.PNG)
   
 ### Virtual Network
@@ -41,6 +42,7 @@ A virtual Network is a collection of Virtual Machines that communicate with each
   - Make sure that it is in the same region  
   - Leave all settings as is in the other tabs  
   - Review and Create  
+  
   ![](Diagrams/Create_Virtual_Network.PNG)    
   
 #### ELK based Virtual Network  
@@ -51,6 +53,7 @@ A virtual Network is a collection of Virtual Machines that communicate with each
   - Under IP Addresses, notice that a new subnet has been created  
   - Leave all settings as is in the other tabs  
   - Review and Create  
+  
   ![](Diagrams/Create_Virtual_Network_ELK.PNG)    
   
 #### Peer Connection  
@@ -60,6 +63,7 @@ A virtual Network is a collection of Virtual Machines that communicate with each
   - Under Virtual Network, select the original Web network  
   - Enter a name that will define the connection from Red to ELK  
   - Leave all other settings as defaults  
+  
   ![](Diagrams/Create_Virtual_Network_ELK_Peering.PNG)  
  
  ### Network Security Group  
@@ -72,6 +76,7 @@ The Network Security Group is the basic firewall for the Azure platform. This is
   - Make sure that it is in the same region as the Web Network  
   - Review and create  
   - We will be creating all the inbound rules after the rest of the componets have been added.  
+  
   ![](Diagrams/Create_Network_Security_Group.PNG)  
   
 ### Virtual Machines
@@ -96,6 +101,7 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
   - For SSH public key, paste in the key that was generated on the host machine  
   - Under the Networking tab make sure Public IP has something in the field  
   - Under NIC network security group, select Advanced, then for Configure network security group select the security group that we created.  
+  
   ![](Diagrams/Create_Virtual_Machine_JumpBox1.PNG)  
   ![](Diagrams/Create_Virtual_Machine_JumpBox2.PNG)  
   ![](Diagrams/Create_Virtual_Machine_JumpBox3.PNG)  
@@ -117,6 +123,7 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
   - Copy the SSH key generated within the Ansible container of the JumpBox  
   - Under the Networking tab, for Public IP select None (these machines will eventually get the Load Balancer IP address)  
   - Under NIC network security group, select Advanced, then for Configure network security group select the security group that we created.  
+  
 ![](Diagrams/Create_Virtual_Machine_Web1.PNG)  
 ![](Diagrams/Create_Virtual_Machine_Web2.PNG)  
 ![](Diagrams/Create_Virtual_Machine_Web3.PNG)  
@@ -136,6 +143,7 @@ A Virtual Machine is just like a physical computer but has the flexibility to ha
   - Copy the SSH key generated within the Ansible container of the JumpBox  
   - Under the Networking tab, for Public IP, allow it to create one  
   - Under NIC network security group, select Basic (by selecting basic a ELK Security Group will be created with an SSH rule already included)  
+  
 ![](Diagrams/Create_Virtual_Machine_ELK1.PNG)  
 ![](Diagrams/Create_Virtual_Machine_ELK2.PNG)  
 ![](Diagrams/Create_Virtual_Machine_ELK3.PNG)
@@ -152,6 +160,7 @@ A load balancer is designed to receive all traffic coming into the website and t
   - For Public IP address name, enter in the name given to the Load Balancer  
   - For IP address management, select Static (this will keep the public IP address the same even if the system goes down)
   - Leave all else the same and click create.  
+  
   ![](Diagrams/Create_Load_Balancer1.PNG)  
 
 #### Health Probe  
@@ -162,6 +171,7 @@ A health probe is created to check the machines behind the load balancer before 
   - Click Health Probe and add one  
   - Name it something that will define the Health Probe  
   - Leave all others the same  
+  
   ![](Diagrams/LB_Health_Probe.PNG)
   
 #### Backend Pool  
@@ -174,6 +184,7 @@ The Backend Pool is created to define what machines will run through the Load Ba
   - For Virtual Network, select the Web Machine Network  
   - For Associate to, select Virtual Machines  
   - Click Add and then select all Web Machines to be load balanced  
+  
   ![](Diagrams/LB_Rule_Backend_Pool.PNG)
   
 #### Load Balancing Rule  
@@ -186,7 +197,8 @@ A Load Balancing Rule is created to define what ports the traffic will go throug
   - For Backend Pool, select the one created  
   - For Health Probe, select the one created  
   - For Session Persistence, select Client IP and Protocol  
-  - Leave all others the same and click OK
+  - Leave all others the same and click OK  
+  
   ![](Diagrams/LB_Rule.PNG)
 
 ### Security Rules  
