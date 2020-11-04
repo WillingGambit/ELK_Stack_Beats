@@ -245,7 +245,7 @@ This rule is created to allow web traffic access into the Web Machines through p
   
   ![](Diagrams/Add_Security_Rule_Port-80-Traffic.PNG)  
   
-#### Host Machine to Kibana   
+#### Host Machine to Kibana (this rule is on ELK Security Group)   
 
 This rule is created to allow the host machine access into the ELK Machine through port 5601 for Kibana.  
   - For Source, select IP Addresses  
