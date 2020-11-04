@@ -214,6 +214,7 @@ This rule is created to allow SSH access into the JumpBox Provisioner from our h
   - For Priority, enter in a value below 4096 (the highest rule number Azure will allow), the lower the number the higher the priority  
   - For Name, enter a name defining the rule  
   - For Description, enter what the rule is allowing  
+  
   ![](Diagrams/Add_Security_Rule_SSH-Port22.PNG)  
   
 Now that this rule is created you should be able to SSH into the JumpBox via the host machine. To test this, from the terminal run the command: ssh (username)@(JumpBox public IP address). 
@@ -228,6 +229,7 @@ This rule is created to allow SSH access into the Web Machines from our JumpBox.
   - For Priority, enter in a value higher than or having a lower priority than SSH Port-22  
   - For Name, enter a name defining the rule  
   - For Description, enter what the rule is allowing  
+  
   ![](Diagrams/Add_Security_Rule_SSH-From-JumpBox.PNG)  
   
 #### Port 80 Traffic  
@@ -240,6 +242,7 @@ This rule is created to allow web traffic access into the Web Machines through p
   - For Priority, enter in a value higher than or having a lower priority than the previous 2 rules  
   - For Name, enter a name defining the rule  
   - For Description, enter what the rule is allowing  
+  
   ![](Diagrams/Add_Security_Rule_Port-80-Traffic.PNG)  
   
 #### Host Machine to Kibana   
@@ -252,6 +255,7 @@ This rule is created to allow the host machine access into the ELK Machine throu
   - For Priority, enter in a value higher than the SSH rule   
   - For Name, enter a name defining the rule  
   - For Description, enter what the rule is allowing  
+  
   ![](Diagrams/Add_Security_Rule_Host-Machine-to-Kibana.PNG) 
   
 ### Containers  
@@ -261,17 +265,20 @@ Containers are esentially lightweight Virtual Machines. This gives greater flexi
   - SSH into the JumpBoxProvisioner  
   - Run sudo apt-get update  
   - Run sudo apt install docker.io  
-  - Run sudo systemctl status docker 
+  - Run sudo systemctl status docker  
+  
   ![](Diagrams/Docker_status.PNG)  
-  - If is shows it's not active then run sudo systemctl start docker 
+  - If is shows it's not active then run sudo systemctl start docker  
+  
   ![](Diagrams/Docker_status_active.PNG)  
   - Run sudo docker pull cyberxsecurity/ansible  
   - Run sudo docker run -ti cyberxsecurity/ansible:latest bash  
   - This will have started the container and should show root@(something):~#  
   - exit  
   - Run sudo docker container list -a  
+  
   ![](Diagrams/Docker_container_list.PNG)  
-  - Under the names you will see the name of the container
+  - Under the names you will see the name of the container  
   - Run sudo docker start (container name)  
   - Run sudo docker ps  
   - Run sudo docker attach (container name)  
