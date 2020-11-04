@@ -35,7 +35,7 @@ The configuration details of each machine may be found below.
 
 | Name          | Function            | IP Address                       | Operating System |
 |---------------|---------------------|----------------------------------|------------------|
-| Jump Box      | Gateway             | 10.0.0.4                         | Linux            |
+| JumpBox       | Gateway             | 10.0.0.4                         | Linux            |
 | Web 1/DVWA    | Web Server          | 10.0.0.5                         | Linux            |
 | Web 2/DVWA    | Web Server          | 10.0.0.6                         | Linux            |
 | Web 3/DVWA    | Web Server          | 10.0.0.8                         | Linux            |
@@ -46,16 +46,15 @@ The configuration details of each machine may be found below.
 
 The machines on the internal network are not exposed to the public Internet.  
 
-Only the Jump Box Provisioner machine can accept connections from the Internet via SSH on port 22. Access to this machine is only allowed from the following IP addresses:
-- IP address of the machine that you have configured to SSH into your Jump Box Provisioner  
+Only the JumpBox Provisioner machine can accept connections from the Internet via SSH on port 22. Access to this machine is only allowed from the IP addresses that have been granted permission through the SSH-Port22 rule, located in the Network Security Group.    
 
-Machines within the network can only be accessed by the Jump Box Provisioner, Jump Box Private IP Address 10.0.0.4.  
+Machines within the network can only be accessed by the JumpBox Provisioner, the JumpBox Private IP Address is 10.0.0.4.  
 
 A summary of the access policies in place can be found in the table below.  
 
 | Name       | Publicly Accessible | Allowed IP Addresses         |
 |------------|---------------------|------------------------------|
-| Jump Box   | Yes                 | Your host machine IP Address |
+| JumpBox    | Yes                 | Your host machine IP Address |
 | Web 1/DVWA | No                  | 10.0.0.4                     |
 | Web 2/DVWA | No                  | 10.0.0.4                     |
 | Web 3/DVWA | No                  | 10.0.0.4                     |
