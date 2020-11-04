@@ -188,3 +188,68 @@ A Load Balancing Rule is created to define what ports the traffic will go throug
   - For Session Persistence, select Client IP and Protocol
 		Leave all others the same and click OK
   ![](Diagrams/LB_Rule.PNG)
+
+### Security Rules  
+
+Traffic coming into the system and throughout the system are all controlled by the rules we create. Here we will create the rules that will allow a connection into the JumpBox machine and then all traffic from there. 
+
+#### SSH Port-22  
+
+This rule is create to allow SSH access into the JumpBox Provisioner from our host machine.  
+  - For Source, select IP Addresses  
+  - For Source IP, enter in the host machine IP address  
+  - For Destination Port Ranges, enter in 22  
+  - For Priority, enter in a value below 4096 (the highest rule number Azure will allow), the lower the number the higher the priority  
+  - For Name, enter a name defining the rule  
+  - For Description, enter what the rule is allowing  
+  ![](Diagrams/Add_Security_Rule_SSH-Port22.PNG)  
+  
+  Now that this rule is created you should be able to SSH into the JumpBox via the host machine. To test this, from the terminal run the command: ssh (username)@(JumpBox public IP address). 
+  
+### Containers  
+
+Containers are esentially lightweight Virtual Machines. This gives greater flexibility in the number of machines desired at a lower cost. They can be deployed quickly and are able to be automatically configured. This allows the machines to all run identically and remove the element of human error in setting up each machine. For this project we will be using Docker for the containers and configure them with Ansible.
+
+  - SSH into the JumpBoxProvisioner  
+  - Run sudo apt-get update  
+  - Run sudo apt install docker.io  
+  - Run sudo systemctl status docker 
+  ![](Diagrams/Docker_status.PNG)  
+  - If is shows it's not active then run sudo systemctl start docker 
+  ![](Diagrams/Docker_status_active.PNG)  
+  - Run sudo docker pull cyberxsecurity/ansible  
+  - Run sudo docker run -ti cyberxsecurity/ansible:latest bash  
+  - This will have started the container and should show root@(something):~#  
+  - exit  
+  - Run sudo docker container list -a  
+  ![](Diagrams/Docker_container_list.PNG)  
+  - Under the names you will see the name of the container
+  - Run sudo docker start (container name)  
+  - Run sudo docker ps  
+  - Run sudo docker attach (container name)  
+  
+You are in the Ansible container. From here you can generate the SSH key for this machine. Return to each of the Web Machines and ELK Machine, click on Reset Password and paste in the new key that was created.
+
+#### SSH From JumpBox into Web Machines  
+
+This rule is create to allow SSH access into the Web Machines from our JumpBox. It will be entered into the Web Machines security group.  
+  - For Source, select IP Addresses  
+  - For Source IP, enter in the JumpBox public IP address  
+  - For Destination, select VirtualNetwork  
+  - For Destination Port Ranges, enter in 22  
+  - For Priority, enter in a value higher than or having a lower priority than SSH Port-22  
+  - For Name, enter a name defining the rule  
+  - For Description, enter what the rule is allowing  
+  ![](Diagrams/Add_Security_Rule_SSH-From-JumpBox.PNG)  
+  
+#### Inbound Security Rule Port 80 Traffic  
+
+This rule is create to allow web traffic access into the Web Machines through port 80.  
+  - For Source, select IP Addresses  
+  - For Source IP, enter * to allow web traffic in from any IP address  
+  - For Destination, select VirtualNetwork  
+  - For Destination Port Ranges, enter in 80  
+  - For Priority, enter in a value higher than or having a lower priority than the previous 2 rules  
+  - For Name, enter a name defining the rule  
+  - For Description, enter what the rule is allowing  
+  ![](Diagrams/Add_Security_Rule_Port-80-Traffic.PNG)  
