@@ -283,6 +283,33 @@ Containers are esentially lightweight Virtual Machines. This gives greater flexi
   - Run sudo docker ps  
   - Run sudo docker attach (container name)  
   
-You are in the Ansible container. From here you can generate the SSH key for this machine. Return to each of the Web Machines and ELK Machine, click on Reset Password and paste in the new key that was created. You can now test the connections to the various machines by SSH into each with: ssh (username)@(Web/ELK Machine private IP address)
+You are in the Ansible container. From here you can generate the SSH key for this machine. Return to each of the Web Machines and ELK Machine, click on Reset Password and paste in the new key that was created. You can now test the connections to the various machines by SSH into each with: ssh (username)@(Web/ELK Machine private IP address)  
 
+We will now configue the Web machines for DVWA websites. These machines can be configured to the web resource of your choosing and by running your playbook, they will all be configured the same.  
+
+#### Configuration  
+
+  - In the Ansible container, run cd /etc/ansible  
+  - Run nano ansible.cfg  
+  - Uncomment the remote_user line and replace Your_Username with the admin username you created  
+  - Save and exit  
+  
+  ![](Diagrams/Ansible_cfg_remote_user.PNG)  
+  
+  - Run nano hosts  
+  - Uncomment the [webservers] header line  
+  - Add the IP addresses of all the Web Servers to be included as such:  
+    10.0.0.8 ansible_python_interpreter=/usr/bin/python3  
+    
+    ![](Diagrams/Hosts_webservers_added.PNG)  
+    
+  - Run nano pentest.yml  
+  - Copy and paste the [pentest.yml](Ansible/pentest.yml) file attached.  
+  - Save and exit  
+  - Run ansible-playbook pentest.yml  
+  - Upon success you should see:  
+  
+    ![](Diagrams/Ansible_playbook_pentest.yml)
+
+You can run ansible all -m ping and all of the connected Web Machines should have success.
 
