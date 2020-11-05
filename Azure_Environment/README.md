@@ -283,7 +283,7 @@ Containers are esentially lightweight Virtual Machines. This gives greater flexi
   - Run sudo docker ps  
   - Run sudo docker attach (container name)  
   
-You are in the Ansible container. From here you can generate the SSH key for this machine. Return to each of the Web Machines and ELK Machine, click on Reset Password and paste in the new key that was created. You can now test the connections to the various machines by SSH into each with: ssh (username)@(Web/ELK Machine private IP address)  
+You are in the Ansible container. From here you can generate the SSH key for this machine. Return to each of the Web Machines and ELK Machine, click on Reset Password and paste in the new key that was created. You can now test the connections to the various machines by SSHing into each with: ssh (username)@(Web/ELK Machine private IP address)  
 
 We will now configue the Web machines for DVWA websites. These machines can be configured to the web resource of your choosing and by running your playbook, they will all be configured the same.  
 
@@ -291,7 +291,7 @@ We will now configue the Web machines for DVWA websites. These machines can be c
 
   - In the Ansible container, run cd /etc/ansible  
   - Run nano ansible.cfg  
-  - Uncomment the remote_user line and replace Your_Username with the admin username you created  
+  - Uncomment the remote_user line and replace with Your_Username that was used in association with the SSH key  
   - Save and exit  
   
   ![](Diagrams/Ansible_cfg_remote_user.PNG)  
@@ -311,5 +311,5 @@ We will now configue the Web machines for DVWA websites. These machines can be c
   
     ![](Diagrams/Ansible_playbook_pentest_yml.PNG)
 
-You can run ansible all -m ping and all of the connected Web Machines should have success.
+You can run ansible all -m ping and all of the connected Web Machines should have success. At this point all configurations with the Azure system is complete along with working Web machines. Next we will configure the ELK stack to be able to monitor the Web machines.
 
