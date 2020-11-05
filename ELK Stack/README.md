@@ -147,7 +147,8 @@ We have installed the following Beats on these machines:
 - Web 3/DVWA (Filebeat, Metricbeat)  
 
 These Beats allow us to collect the following information from each machine:  
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat collects log files and organizes them for Logstash and Elasticsearch. It could monitor for any changes to say the /etc/shadow file to see if any user information has been changed or updated.
+- Metricbeat collects data on the metrics of the operating system or services running to be sent to Logstash or Elasticsearch. It can also generate an error chain should there be a problem in the gathering of the metrics, which can greatly help to diagnose the problem.
 
 ### Using the Playbook  
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
