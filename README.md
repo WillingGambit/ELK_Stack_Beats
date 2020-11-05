@@ -4,7 +4,7 @@ The files in this repository were used to configure the network depicted below.
 
 ![ELK stack with filebeat and metricbeat monitoring](Diagrams/RedTeam_Resource_Group_with_ELK.png)
 
-All files have been tested and used to generate Ansible containers for web server machines and a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the Ansible file may be used to install only certain pieces of it, such as Filebeat.  
+All files have been tested and used to generate Ansible containers for web server machines and a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions may be used such as a portion of the Ansible file may be used to install only certain pieces of it, such as Filebeat.  
 
 This document is broken down into two main fields:  
 - Setup and configuration of the Azure environment  
